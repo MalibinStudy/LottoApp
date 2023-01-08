@@ -21,6 +21,8 @@ data class LottoTicket(
         return lottoNumbers.count { otherLottoTicket.has(it) }
     }
 
+    override fun toString(): String = lottoNumbers.joinToString(", ")
+
     companion object {
         private const val LOTTO_NUMBERS_AMOUNT = 6
     }

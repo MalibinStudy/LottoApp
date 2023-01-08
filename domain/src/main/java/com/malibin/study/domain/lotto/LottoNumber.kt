@@ -8,6 +8,8 @@ value class LottoNumber private constructor(
         require(number in MIN_LOTTO_NUMBER..MAX_LOTTO_NUMBER) { "입력 숫자 ($number)는 로또 숫자 범위(1 ~ 45) 내의 숫자가 아닙니다." }
     }
 
+    override fun toString(): String = "$number"
+
     companion object {
         private const val MIN_LOTTO_NUMBER = 1
         private const val MAX_LOTTO_NUMBER = 45
