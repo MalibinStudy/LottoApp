@@ -10,7 +10,7 @@ class LottoTicketGenerator(
         return LottoTicket(generatingLottoNumbersStrategy.generate())
     }
 
-    fun createManuelTicket(numbers: Set<Int>): LottoTicket {
+    fun createManualTicket(numbers: Set<Int>): LottoTicket {
         return LottoTicket(numbers.map { LottoNumber.of(it) })
     }
 }
