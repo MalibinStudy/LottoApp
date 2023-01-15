@@ -1,25 +1,30 @@
 package com.malibin.study.domain.lotto.result
 
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.data.forAll
-import io.kotest.data.row
-import io.kotest.matchers.shouldBe
+import com.google.common.truth.Truth.assertThat
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.CsvSource
 
-class PrizeTest : StringSpec({
+class PrizeTest {
+    @CsvSource(
+        "6,false,First",
+        "5,true,Second",
+        "5,false,Third",
+        "4,false,Fourth",
+        "3,false,Fifth",
+        "2,false,Lose",
+        "1,false,Lose",
+        "0,false,Lose",
+    )
+    @ParameterizedTest
+    fun `맞은 로또 번호 개수와 맞은 보너스 숫자 여부에 따른 결과를 찾을 수 있다`(
+        matchedNumberCount: Int,
+        isBonusNumberMatched: Boolean,
+        expectedPrize: Prize
+    ) {
+        // when
+        val actualPrize = Prize.find(matchedNumberCount, isBonusNumberMatched)
 
-    "맞은 로또 번호 개수와 맞은 보너스 숫자 여부에 따른 결과를 찾을 수 있다"{
-        forAll(
-            row(6, false, Prize.First),
-            row(5, true, Prize.Second),
-            row(5, false, Prize.Third),
-            row(4, false, Prize.Fourth),
-            row(3, false, Prize.Fifth),
-            row(2, false, Prize.Lose),
-            row(1, false, Prize.Lose),
-            row(0, false, Prize.Lose),
-        ) { matchedNumberCount, isBonusNumberMatched, expectedPrize ->
-            val actualPrize = Prize.find(matchedNumberCount, isBonusNumberMatched)
-            actualPrize shouldBe expectedPrize
-        }
+        // then
+        assertThat(actualPrize).isEqualTo(expectedPrize)
     }
-})
+}

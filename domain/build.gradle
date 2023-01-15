@@ -8,7 +8,7 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-test{
+test {
     useJUnitPlatform()
 }
 
@@ -17,5 +17,4 @@ dependencies {
 
     testImplementation "com.google.truth:truth:1.1.3"
     testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
-    testImplementation "io.kotest:kotest-runner-junit5:5.5.4"
 }

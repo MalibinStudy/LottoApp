@@ -1,13 +1,14 @@
 package com.malibin.study.domain.lotto.generator
 
+import com.google.common.truth.Truth.assertThat
 import com.malibin.study.domain.lotto.LottoNumber
 import com.malibin.study.domain.lotto.ticket.LottoTicket
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.shouldBe
+import org.junit.jupiter.api.Test
 
-class LottoTicketGeneratorTest : StringSpec({
+class LottoTicketGeneratorTest {
 
-    "번호를 직접 입력해 수동 티켓을 출력할 수 있다" {
+    @Test
+    fun `번호를 직접 입력해 수동 티켓을 출력할 수 있다`() {
         // given
         val lottoTicketGenerator = LottoTicketGenerator()
         val manualNumbers = setOf(1, 2, 3, 4, 5, 6)
@@ -17,10 +18,11 @@ class LottoTicketGeneratorTest : StringSpec({
         val actualLottoTicket = lottoTicketGenerator.createManualTicket(manualNumbers)
 
         // then
-        actualLottoTicket shouldBe expectedLottoTicket
+        assertThat(actualLottoTicket).isEqualTo(expectedLottoTicket)
     }
 
-    "자동 티켓을 출력할 수 있다" {
+    @Test
+    fun `자동 티켓을 출력할 수 있다`() {
         // given
         val lottoTicketGenerator = LottoTicketGenerator {
             setOf(
@@ -38,6 +40,6 @@ class LottoTicketGeneratorTest : StringSpec({
         val actualLottoTicket = lottoTicketGenerator.createAutoTicket()
 
         // then
-        actualLottoTicket shouldBe expectedLottoTicket
+        assertThat(actualLottoTicket).isEqualTo(expectedLottoTicket)
     }
-})
+}
