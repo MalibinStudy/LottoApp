@@ -13,7 +13,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="자동 티켓"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,13 +32,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsAutoLottoTickets"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCreateAutoLottoTicket"
-        tools:listitem="@layout/item_lotto_ticket"
-        tools:spanCount="2" />
+        app:spanCount="2"
+        tools:listitem="@layout/item_lotto_ticket" />
 
     <TextView
         android:id="@+id/textView2"
@@ -48,7 +47,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="수동 티켓"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,13 +89,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/itemsManualLottoTickets"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonCreateManualLottoTicket"
-        tools:listitem="@layout/item_lotto_ticket"
-        tools:spanCount="2" />
+        app:spanCount="2"
+        tools:listitem="@layout/item_lotto_ticket" />
 
     <TextView
         android:id="@+id/textView9"
@@ -106,7 +105,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="당첨 티켓"
-        android:textColor="@color/black"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -117,7 +115,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="공백으로 구분해서 6개 숫자를 입력해주세요"
+        android:hint="공백으로 구분해서 7개 숫자를 입력해주세요"
         android:inputType="textPersonName"
         android:textSize="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
@@ -148,17 +146,17 @@
 
     <TextView
         android:id="@+id/textWinningLottoTicket"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        tools:text="1 2 3 4 5 6"
-        tools:visibility="gone"
         android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="@+id/textWinningLottoNumbers"
         app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="@+id/textView9"
+        tools:text="1 2 3 4 5 6"
+        tools:visibility="gone" />
 
     <TextView
         android:id="@+id/textResults"
@@ -167,7 +165,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        tools:text="결과가 어쩌구"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -186,9 +184,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        tools:text="얼마"
         app:layout_constraintBottom_toBottomOf="@+id/textView12"
         app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/textView12" />
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        tools:text="얼마" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,4 +22,8 @@ class WinningTicket(
         val hasBonusNumber = otherTicket.has(bonusNumber)
         return Prize.find(matchedNumberCount, hasBonusNumber)
     }
+
+    override fun toString(): String {
+        return "$winningNumbers, $bonusNumber"
+    }
 }

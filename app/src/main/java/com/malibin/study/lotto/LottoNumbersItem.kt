@@ -1,6 +1,6 @@
 package com.malibin.study.lotto
 
-import com.malibin.study.domain.lotto.LottoNumber
+import com.malibin.study.domain.lotto.ticket.LottoTicket
 
 data class LottoNumbersItem(
     val firstNumber: Int,
@@ -11,7 +11,8 @@ data class LottoNumbersItem(
     val sixthNumber: Int,
 )
 
-fun Set<LottoNumber>.toUiModel(): LottoNumbersItem = this.map { it.number }
+fun LottoTicket.toUiModel(): LottoNumbersItem = this.lottoNumbers
+    .map { it.number }
     .let {
         LottoNumbersItem(
             firstNumber = it[0],

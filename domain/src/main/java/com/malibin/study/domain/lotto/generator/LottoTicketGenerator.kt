@@ -7,7 +7,7 @@ class LottoTicketGenerator(
     private val generatingLottoNumbersStrategy: GeneratingLottoNumbersStrategy = RandomLottoNumbersStrategy(),
 ) {
     fun createAutoTicket(): LottoTicket {
-        return LottoTicket(generatingLottoNumbersStrategy.generate())
+        return LottoTicket(generatingLottoNumbersStrategy.generate().sortedBy { it.number })
     }
 
     fun createManualTicket(numbers: Set<Int>): LottoTicket {
