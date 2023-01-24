@@ -2,7 +2,7 @@ package com.malibin.study.domain.lotto
 
 @JvmInline
 value class LottoNumber private constructor(
-    private val number: Int,
+    val number: Int,
 ) {
     init {
         require(number in RANGE) { "입력 숫자 ($number)는 로또 숫자 범위(1 ~ 45) 내의 숫자가 아닙니다." }
