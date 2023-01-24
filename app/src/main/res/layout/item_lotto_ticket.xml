@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textFirstNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textSecondNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/textSecondNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textFirstNumber"
+        app:layout_constraintEnd_toStartOf="@+id/textThirdNumber"
+        app:layout_constraintStart_toEndOf="@+id/textFirstNumber"
+        app:layout_constraintTop_toTopOf="@+id/textFirstNumber"
+        tools:text="2" />
+
+    <TextView
+        android:id="@+id/textThirdNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textSecondNumber"
+        app:layout_constraintEnd_toStartOf="@+id/textFourthNumber"
+        app:layout_constraintStart_toEndOf="@+id/textSecondNumber"
+        app:layout_constraintTop_toTopOf="@+id/textSecondNumber"
+        tools:text="3" />
+
+    <TextView
+        android:id="@+id/textFourthNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textThirdNumber"
+        app:layout_constraintEnd_toStartOf="@+id/textFifthNumber"
+        app:layout_constraintStart_toEndOf="@+id/textThirdNumber"
+        app:layout_constraintTop_toTopOf="@+id/textThirdNumber"
+        tools:text="4" />
+
+    <TextView
+        android:id="@+id/textFifthNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/textFourthNumber"
+        app:layout_constraintEnd_toStartOf="@+id/textSixthNumber"
+        app:layout_constraintStart_toEndOf="@+id/textFourthNumber"
+        app:layout_constraintTop_toTopOf="@+id/textFourthNumber"
+        tools:text="5" />
+
+    <TextView
+        android:id="@+id/textSixthNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textFifthNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textFifthNumber"
+        app:layout_constraintTop_toTopOf="@+id/textFifthNumber"
+        tools:text="6" />
+</androidx.constraintlayout.widget.ConstraintLayout>
