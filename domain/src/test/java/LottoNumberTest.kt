@@ -18,6 +18,6 @@ class LottoNumberTest {
     @ParameterizedTest
     fun `LOTTO_NUMBER가_비정상일_때_잘_동작하는지?`(number : Int) {
         val exception = kotlin.runCatching { LottoNumber.of(number) }.exceptionOrNull()
-        assertThat(exception).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(exception).hasMessageThat().contains(number.toString())
     }
 }

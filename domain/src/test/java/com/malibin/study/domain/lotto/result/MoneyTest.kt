@@ -23,7 +23,7 @@ class MoneyTest {
     @ParameterizedTest
     fun `Money의_값이_음수일_때_잘_동작하는지?`(input: Int) {
         val exception = kotlin.runCatching { Money(input.toLong()) }.exceptionOrNull()
-        assertThat(exception).isInstanceOf(IllegalArgumentException::class.java)
+        assertThat(exception).hasMessageThat().contains(input.toString())
 
     }
 
