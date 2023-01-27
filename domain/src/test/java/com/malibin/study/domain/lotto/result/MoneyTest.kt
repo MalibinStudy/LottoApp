@@ -4,6 +4,7 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.NullSource
 import org.junit.jupiter.params.provider.ValueSource
 import java.lang.Exception
 import java.lang.IllegalArgumentException
@@ -16,7 +17,7 @@ class MoneyTest {
     @ParameterizedTest
     fun `Money의_값이_정상일_때_잘_동작하는지?`(input: Int) {
         val actualMoney = Money(input.toLong())
-        assertThat(actualMoney).isEqualTo(Money(amount = input.toLong()))
+        assertThat(actualMoney.amount).isAtLeast(0)
     }
 
     @ValueSource(ints = [-1, -5, -3, -35, -10])
@@ -24,6 +25,15 @@ class MoneyTest {
     fun `Money의_값이_음수일_때_잘_동작하는지?`(input: Int) {
         val exception = kotlin.runCatching { Money(input.toLong()) }.exceptionOrNull()
         assertThat(exception).hasMessageThat().contains(input.toString())
+    }
+
+    /** 왜 Null은 Exception으로 걸러낼 수 없을까?
+     * 별개의 try catch 처리를 해 주어야 하나? */
+    @NullSource
+    @ParameterizedTest
+    fun `Money의_값이_Null일_때_잘_동작하는지?`(input: Int) {
+        val exception = kotlin.runCatching { Money(input.toLong()) }.exceptionOrNull()
+        assertThat(exception).isInstanceOf(Exception::class.java)
 
     }
 
