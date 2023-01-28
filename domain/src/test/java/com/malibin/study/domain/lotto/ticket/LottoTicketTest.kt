@@ -41,5 +41,14 @@ class LottoTicketTest {
         val actualValue = LottoTicket(*lottoNumbers).has(LottoNumber.of(target))
         assertThat(actualValue).isEqualTo(result)
     }
+
+    @Test
+    fun `두_LottoTicket_간에 _공통된_숫자가_몇개인지?`() {
+        val correctLottoNumber = intArrayOf(1,3,5,7,9,11)
+        val testLottoNumber = intArrayOf(1,2,3,4,5,6)
+        val expectAnswer = 3
+        val actualValue = LottoTicket(*testLottoNumber).countMatchingNumbers(LottoTicket(*correctLottoNumber))
+        assertThat(actualValue).isEqualTo(expectAnswer)
+    }
 }
 
