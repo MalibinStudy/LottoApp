@@ -24,6 +24,20 @@ internal class LottoTicketTest {
     }
 
     @Test
+    fun `로또 번호가 중복으로 주어지면 예외처리를 던진다`() {
+        // given
+        val lottoNumbers = intArrayOf(1, 2, 3, 3, 5, 6)
+
+        // when
+        val actualException = runCatching { LottoTicket(*lottoNumbers) }.exceptionOrNull()
+
+        // then
+        if (lottoNumbers.toSet().size != lottoNumbers.size) {
+            assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        }
+    }
+
+    @Test
     fun `로또 번호의 개수가 6보다 크면 예외처리를 던진다`() {
         // given
         val lottoNumbers = intArrayOf(1, 2, 3, 4, 5, 6, 7)
@@ -69,26 +83,34 @@ internal class LottoTicketTest {
         assertThat(lottoTicket.has(lottoNumber)).isFalse()
     }
 
-    @Test
-    fun `로또 티켓과 일치 하는 번호의 개수를 알 수 있다`() {
+    @ParameterizedTest
+    @MethodSource("providesOtherNumbers")
+    fun `로또 티켓과 일치 하는 번호의 개수를 알 수 있다`(otherLottoNumber: IntArray, matchNumber: Int) {
         // given
         val lottoNumber = intArrayOf(1, 2, 3, 20, 30, 40)
-        val otherLottoNumber = intArrayOf(1, 2, 3, 4, 5, 6)
 
         val lottoTicket = LottoTicket(*lottoNumber)
         val otherLottoTicket = LottoTicket(*otherLottoNumber)
 
         // when then
-        assertThat (lottoTicket.countMatchingNumbers(otherLottoTicket) == 3).isTrue()
+        assertThat(lottoTicket.countMatchingNumbers(otherLottoTicket)).isEqualTo(matchNumber)
     }
 
     companion object {
         @JvmStatic
         fun providesLottoNumbers(): List<Arguments> =
             listOf(
-                Arguments.of(intArrayOf(1, 2, 3, 4, 5, 6)),
+                Arguments.of(intArrayOf(1, 2, 3, 4, 5, 6), 3),
                 Arguments.of(intArrayOf(1, 10, 20, 30, 40, 45)),
                 Arguments.of(intArrayOf(1, 12, 23, 24, 35, 42))
+            )
+
+        @JvmStatic
+        fun providesOtherNumbers(): List<Arguments> =
+            listOf(
+                Arguments.of(intArrayOf(1, 2, 3, 4, 5, 6), 3),
+                Arguments.of(intArrayOf(1, 10, 20, 30, 40, 45), 4),
+                Arguments.of(intArrayOf(1, 12, 23, 24, 35, 42), 1)
             )
     }
 
