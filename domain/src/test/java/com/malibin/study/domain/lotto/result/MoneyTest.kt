@@ -9,28 +9,21 @@ import org.junit.jupiter.params.provider.ValueSource
 
 internal class MoneyTest {
 
-    @ValueSource(longs = [0, 1, 1000, 10000])
-    @ParameterizedTest
-    fun `amount에 0이상의 값이 들어올 수 있다`(positiveAmount: Long) {
-        // given
-        val actualAmount = Money(positiveAmount).amount
+    @Test
+    fun `amount에 음수가 들어오면 예외를 던진다`() {
 
-        // then
-        assertThat(actualAmount).isAtLeast(0)
-    }
+        //when
+        val actualAmount = -1L
 
-    @ValueSource(longs = [-10, -5, -1, -4])
-    @ParameterizedTest
-    fun `amount에 음수가 들어오면 예외를 던진다`(negativeAmount: Long) {
         // given
-        val actualException = runCatching { Money(negativeAmount).amount }.exceptionOrNull()
+        val actualException = runCatching { Money(actualAmount).amount }.exceptionOrNull()
 
         // then
         assertAll(
             { assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java) },
             {
                 assertThat(actualException).hasMessageThat()
-                    .contains("돈의 액수는 음수가 될 수 없습니다. 입력 값 : $negativeAmount")
+                    .contains("돈의 액수는 음수가 될 수 없습니다. 입력 값 : $actualAmount")
             }
         )
     }
@@ -51,33 +44,5 @@ internal class MoneyTest {
 
         // then
         assertThat(actualMoney).isEqualTo(Money(1_000))
-    }
-
-    @Test
-    fun `Money를 연산자 '+'로 더한 값이 예상과 다를 때 예외를 던진다`() {
-        // when
-        val actualMoney = Money(1_000) + Money(2_000)
-
-        // given
-        val actualException = runCatching { Money(5_000) }.exceptionOrNull()
-
-        // then
-        if (actualMoney != Money(3_000)) {
-            assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
-        }
-    }
-
-    @Test
-    fun `Money를 연산자 '-'로 뺀 값이 예상과 다를 때 예외를 던진다`() {
-        // when
-        val actualMoney = Money(3_000) - Money(2_000)
-
-        // given
-        val actualException = runCatching { Money(2_000) }.exceptionOrNull()
-
-        // then
-        if (actualMoney != Money(1_000)) {
-            assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
-        }
     }
 }

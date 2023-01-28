@@ -7,13 +7,6 @@ import org.junit.jupiter.params.provider.ValueSource
 
 internal class LottoNumberTest {
 
-    @ValueSource(ints = [1, 10, 23, 34, 45])
-    @ParameterizedTest
-    fun `로또 번호는 1과 45 사이의 수가 주어 진다`(validLottoNumber: Int) {
-        // then
-        assertThat(validLottoNumber).isIn(IntRange(1, 45))
-    }
-
     @ValueSource(ints = [-1, 0, 46])
     @ParameterizedTest
     fun `로또 번호에 1과 45 사이 이외의 수가 들어오면 예외처리를 던진다`(invalidLottoNumber: Int) {
@@ -29,5 +22,4 @@ internal class LottoNumberTest {
             }
         )
     }
-
 }

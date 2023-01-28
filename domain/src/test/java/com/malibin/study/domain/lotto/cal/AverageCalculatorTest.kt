@@ -37,6 +37,7 @@ internal class AverageCalculatorTest {
     }
 
     companion object {
+        @JvmStatic
         fun providesLottoTickets(): List<Arguments> =
             listOf(
                 Arguments.of(LottoTicket(1, 2, 3, 4, 5, 6), 1, "하하하하하"),
