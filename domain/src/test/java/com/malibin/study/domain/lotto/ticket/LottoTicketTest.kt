@@ -49,7 +49,7 @@ internal class LottoTicketTest {
 
     @ParameterizedTest
     @MethodSource("providesLottoNumbers")
-    fun `로또 티켓에 일치 하는 숫자가 존재 하는 지 확인할 수 있다`(lottoNumbers: IntArray) {
+    fun `로또 티켓에 일치 하는 번호가 존재 하는 지 확인할 수 있다`(lottoNumbers: IntArray) {
         // given
         val lottoTicket = LottoTicket(*lottoNumbers)
         val lottoNumber = LottoNumber.of(1)
@@ -60,13 +60,26 @@ internal class LottoTicketTest {
 
     @ParameterizedTest
     @MethodSource("providesLottoNumbers")
-    fun `로또 티켓에 일치 하는 숫자가 하나도 없는 지 확인할 수 있다`(lottoNumbers: IntArray) {
+    fun `로또 티켓에 일치 하는 번호가 하나도 없는 지 확인할 수 있다`(lottoNumbers: IntArray) {
         // given
         val lottoTicket = LottoTicket(*lottoNumbers)
         val lottoNumber = LottoNumber.of(7)
 
         // then
         assertThat(lottoTicket.has(lottoNumber)).isFalse()
+    }
+
+    @Test
+    fun `로또 티켓과 일치 하는 번호의 개수를 알 수 있다`() {
+        // given
+        val lottoNumber = intArrayOf(1, 2, 3, 20, 30, 40)
+        val otherLottoNumber = intArrayOf(1, 2, 3, 4, 5, 6)
+
+        val lottoTicket = LottoTicket(*lottoNumber)
+        val otherLottoTicket = LottoTicket(*otherLottoNumber)
+
+        // when then
+        assertThat (lottoTicket.countMatchingNumbers(otherLottoTicket) == 3).isTrue()
     }
 
     companion object {
