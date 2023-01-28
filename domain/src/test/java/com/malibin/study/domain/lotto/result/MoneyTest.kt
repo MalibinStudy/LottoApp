@@ -52,4 +52,32 @@ internal class MoneyTest {
         // then
         assertThat(actualMoney).isEqualTo(Money(1_000))
     }
+
+    @Test
+    fun `Money를 연산자 '+'로 더한 값이 예상과 다를 때 예외를 던진다`() {
+        // when
+        val actualMoney = Money(1_000) + Money(2_000)
+
+        // given
+        val actualException = runCatching { Money(5_000) }.exceptionOrNull()
+
+        // then
+        if (actualMoney != Money(3_000)) {
+            assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        }
+    }
+
+    @Test
+    fun `Money를 연산자 '-'로 뺀 값이 예상과 다를 때 예외를 던진다`() {
+        // when
+        val actualMoney = Money(3_000) - Money(2_000)
+
+        // given
+        val actualException = runCatching { Money(2_000) }.exceptionOrNull()
+
+        // then
+        if (actualMoney != Money(1_000)) {
+            assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+        }
+    }
 }
