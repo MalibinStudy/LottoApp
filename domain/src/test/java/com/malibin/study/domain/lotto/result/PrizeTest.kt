@@ -1,18 +1,18 @@
 package com.malibin.study.domain.lotto.result
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 internal class PrizeTest {
 
-    @CsvSource("6,false,First")
+    @CsvSource(
+        value = ["6,false,First", "5,true,Second", "5,false,Third", "4,false,Fourth",
+            "3,false,Fifth", "2,false,Lose", "1,false,Lose", "0,false,Lose"]
+    )
     @ParameterizedTest
-    fun `6개의 번호가 일치할 경우 1등 당첨`(
-        matchedNumberCount: Int,
-        hasBonusNumber: Boolean,
-        expectedPrize: Prize
+    fun `일치하는 번호의 개수와 보너스 번호의 존재 여부에 따라 당첨 결과를 알 수 있다`(
+        matchedNumberCount: Int, hasBonusNumber: Boolean, expectedPrize: Prize
     ) {
         // when
         val actualPrize = Prize.find(matchedNumberCount, hasBonusNumber)
@@ -21,28 +21,4 @@ internal class PrizeTest {
         assertThat(actualPrize).isEqualTo(expectedPrize)
     }
 
-    @Test
-    fun `5개의 번호가 일치하고 보너스 번호가 존재할 경우 2등 당첨`() {
-
-    }
-
-    @Test
-    fun `5개의 번호가 일치하고 보너스 번호가 없는 경우 3등 당첨`() {
-
-    }
-
-    @Test
-    fun `4개의 번호가 일치할 경우 4등 당첨`() {
-
-    }
-
-    @Test
-    fun `3개의 번호가 일치할 경우 5등 당첨`() {
-
-    }
-
-    @Test
-    fun `2개이하의 번호가 일치할 경우 낙첨`() {
-
-    }
 }
