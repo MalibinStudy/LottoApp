@@ -1,0 +1,68 @@
+package com.malibin.study.domain.lotto.ticket
+
+import com.google.common.truth.Truth.assertThat
+import com.malibin.study.domain.lotto.LottoNumber
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
+
+internal class LottoTicketTest {
+    @MethodSource("providesLottoTickets")
+    @ParameterizedTest
+    fun `lottoNumber의 size는 6이어야 한다`(arg: IntArray) {
+        // given
+        val lottoNumbers = arg
+        // when
+        val actualException = runCatching { LottoTicket(*lottoNumbers) }.exceptionOrNull()
+        // then
+        assertAll(
+            { assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java) },
+            {
+                assertThat(actualException).hasMessageThat()
+                    .contains("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : ${lottoNumbers.contentToString()}")
+            }
+        )
+    }
+
+    @Test
+    fun `lottoNumber에는 중복된 숫자가 있어선 안된다`() {
+        //given
+        val lottoNumbers = intArrayOf(1, 1, 2, 3, 4, 5)
+        //when
+        val actualException = runCatching { LottoTicket(*lottoNumbers) }.exceptionOrNull()
+        //then
+        assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
+    }
+
+    @Test
+    fun `특정 숫자가 포함되어있는지 확인할 수 있다`() {
+        //given
+        val lottoNumbers = intArrayOf(1, 2, 3, 4, 5, 6)
+        //when
+        val actualResult = LottoTicket(*lottoNumbers).has(LottoNumber.of(7))
+        //then
+        assertThat(actualResult).isFalse()
+    }
+    @Test
+    fun `로또가 적중한 개수를 반환한다`(){
+        //given
+        val lottoNumbers1 = intArrayOf(1, 2, 3, 4, 5, 6)
+        val lottoNumbers2 = intArrayOf(1, 2, 3, 4, 5, 7)
+        //when
+        val lottoTicket1 = LottoTicket(*lottoNumbers1)
+        val lottoTicket2 = LottoTicket(*lottoNumbers2)
+        val actualResult = lottoTicket1.countMatchingNumbers(lottoTicket2)
+        //then
+        assertThat(actualResult).isEqualTo(5)
+    }
+
+    companion object {
+        @JvmStatic
+        fun providesLottoTickets(): List<Arguments> = listOf(
+            Arguments.of(intArrayOf(1, 2, 3, 4)),
+            Arguments.of(intArrayOf(1, 2, 3, 4, 5, 6, 7))
+        )
+    }
+}
