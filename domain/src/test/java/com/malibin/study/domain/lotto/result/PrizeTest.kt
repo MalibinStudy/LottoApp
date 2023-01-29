@@ -2,7 +2,9 @@ package com.malibin.study.domain.lotto.result
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.CsvSource
+import org.junit.jupiter.params.provider.MethodSource
 
 internal class PrizeTest {
 
@@ -21,4 +23,26 @@ internal class PrizeTest {
         assertThat(actualPrize).isEqualTo(expectedPrize)
     }
 
+    @MethodSource("providesPrizeValue")
+    @ParameterizedTest
+    fun `순위에 맞는 당첨 금액을 알 수 있다`(expectedPrize: Prize, amount: Long) {
+        // when
+        val actualPrize = expectedPrize.amount.amount
+
+        // then
+        assertThat(actualPrize).isEqualTo(amount)
+    }
+
+    companion object {
+        @JvmStatic
+        fun providesPrizeValue(): List<Arguments> =
+            listOf(
+                Arguments.of(Prize.First, 2_000_000_000L),
+                Arguments.of(Prize.Second, 30_000_000),
+                Arguments.of(Prize.Third, 1_500_000L),
+                Arguments.of(Prize.Fourth, 50_000L),
+                Arguments.of(Prize.Fifth, 5_000L),
+                Arguments.of(Prize.Lose, 0L),
+            )
+    }
 }
