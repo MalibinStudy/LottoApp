@@ -5,6 +5,7 @@ import com.malibin.study.domain.lotto.LottoNumber
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.MethodSource
 import java.util.*
 
@@ -21,14 +22,14 @@ internal class LottoTicketTest {
     }
 
     @ParameterizedTest
-    @MethodSource("providesLottoNumbers")
+    @CsvSource(value = ["1:true", "7:false"], delimiter = ':')
     fun `로또 티켓과 일치 하는 번호의 존재 여부를 확인할 수 있다`(number: Int, isSame: Boolean) {
         // given
         val lottoTicket = LottoTicket(1, 2, 3, 4, 5, 6)
         val lottoNumber = LottoNumber.of(number)
 
         // then
-        assertThat(lottoTicket.has(lottoNumber) == isSame).isTrue()
+        assertThat(lottoTicket.has(lottoNumber)).isEqualTo(isSame)
     }
 
     @ParameterizedTest
@@ -36,12 +37,14 @@ internal class LottoTicketTest {
     fun `로또 티켓과 일치 하는 번호의 개수를 알 수 있다`(otherLottoNumber: IntArray, matchNumber: Int) {
         // given
         val lottoNumber = intArrayOf(1, 2, 3, 4, 5, 6)
-
         val lottoTicket = LottoTicket(*lottoNumber)
         val otherLottoTicket = LottoTicket(*otherLottoNumber)
 
-        // when then
-        assertThat(lottoTicket.countMatchingNumbers(otherLottoTicket)).isEqualTo(matchNumber)
+        // when
+        val matchingNumCount = lottoTicket.countMatchingNumbers(otherLottoTicket)
+
+        // then
+        assertThat(matchingNumCount).isEqualTo(matchNumber)
     }
 
     companion object {
@@ -51,13 +54,6 @@ internal class LottoTicketTest {
                 Arguments.of(intArrayOf(1, 2, 2, 3, 4, 5)),
                 Arguments.of(intArrayOf(1, 2, 3, 4, 5)),
                 Arguments.of(intArrayOf(1, 2, 3, 4, 5, 6, 7))
-            )
-
-        @JvmStatic
-        fun providesLottoNumbers(): List<Arguments> =
-            listOf(
-                Arguments.of(1, true),
-                Arguments.of(7, false),
             )
 
         @JvmStatic
