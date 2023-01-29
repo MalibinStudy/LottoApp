@@ -13,3 +13,4 @@
 2. lottoNumber에는 중복된 숫자가 있어선 안된다.
 3. 특정 숫자가 포함되어있는지 확인할 수 있다.(has)
 4. 로또가 적중한 개수를 반환한다.(countMatchingNumbers)
+
