@@ -17,4 +17,18 @@ internal class LottoNumberTest {
         // then
         Truth.assertThat(exception).isInstanceOf(IllegalArgumentException::class.java)
     }
+
+    @Test
+    fun `입력 숫자는 45보다 클 수 없다`() {
+        // given
+        val number = 46
+
+        // when
+        val exception = kotlin.runCatching {
+            LottoNumber.of(number)
+        }.exceptionOrNull()
+
+        // then
+        Truth.assertThat(exception).isInstanceOf(IllegalArgumentException::class.java)
+    }
 }
