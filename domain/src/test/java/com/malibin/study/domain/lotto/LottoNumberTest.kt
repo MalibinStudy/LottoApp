@@ -6,7 +6,7 @@ import org.junit.jupiter.api.assertAll
 
 internal class LottoNumberTest {
     @Test
-    fun `number가 범위 내(1~45)의 정수여야 한다`() {
+    fun `number가 범위(1~45)를 벗어날 경우 예외를 발생시킨다`() {
         //given
         val number = 46
         //when
