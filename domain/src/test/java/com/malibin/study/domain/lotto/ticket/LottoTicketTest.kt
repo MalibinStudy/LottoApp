@@ -11,8 +11,6 @@ import org.junit.jupiter.params.provider.MethodSource
 internal class LottoTicketTest {
     @MethodSource("providesInvalidSizeLottoTickets")
     @ParameterizedTest
-        // given
-        val lottoNumbers = arg
     fun `lottoNumber의 size가 6이 아니면 예외를 발생시킨다`(lottoNumbers: IntArray) {
         // when
         val actualException = runCatching { LottoTicket(*lottoNumbers) }.exceptionOrNull()
@@ -28,10 +26,8 @@ internal class LottoTicketTest {
 
     @Test
     fun `lottoNumber에는 중복된 숫자가 있어선 안된다`() {
-        //given
-        val lottoNumbers = intArrayOf(1, 1, 2, 3, 4, 5)
         //when
-        val actualException = runCatching { LottoTicket(*lottoNumbers) }.exceptionOrNull()
+        val actualException = runCatching { LottoTicket(1, 1, 2, 3, 4, 5) }.exceptionOrNull()
         //then
         assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java)
     }
@@ -48,11 +44,9 @@ internal class LottoTicketTest {
     @Test
     fun `로또가 적중한 개수를 반환한다`(){
         //given
-        val lottoNumbers1 = intArrayOf(1, 2, 3, 4, 5, 6)
-        val lottoNumbers2 = intArrayOf(1, 2, 3, 4, 5, 7)
+        val lottoTicket1 = LottoTicket(1,2,3,4,5,6)
+        val lottoTicket2 = LottoTicket(1,2,3,4,5,7)
         //when
-        val lottoTicket1 = LottoTicket(*lottoNumbers1)
-        val lottoTicket2 = LottoTicket(*lottoNumbers2)
         val actualResult = lottoTicket1.countMatchingNumbers(lottoTicket2)
         //then
         assertThat(actualResult).isEqualTo(5)
