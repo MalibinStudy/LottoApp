@@ -12,11 +12,11 @@ internal class MoneyTest {
     @Test
     fun `amount에 음수가 들어오면 예외를 던진다`() {
 
-        //when
+        // given
         val actualAmount = -1L
 
-        // given
-        val actualException = runCatching { Money(actualAmount).amount }.exceptionOrNull()
+        // when
+        val actualException = runCatching { Money(actualAmount) }.exceptionOrNull()
 
         // then
         assertAll(
