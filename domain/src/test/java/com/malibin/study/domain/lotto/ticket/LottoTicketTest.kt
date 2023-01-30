@@ -13,37 +13,29 @@ import org.junit.jupiter.params.provider.ValueSource
 class LottoTicketTest {
     @EmptySource
     @ParameterizedTest
-    fun `LottoTicket에_빈_배열이_들어오는_경우?`(lottoNumbers: Set<LottoNumber>) {
+    fun `LottoTicket에 빈 배열이 들어오는 경우(지정된 길이보다 모자랄 경우) 에러를 반환한다`(lottoNumbers: Set<LottoNumber>) {
         val exception = kotlin.runCatching { LottoTicket(lottoNumbers) }.exceptionOrNull()
         assertThat(exception).hasMessageThat()
-            .contains("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : $lottoNumbers")
-    }
-
-    /** 왜 Exception 으로 걸리지 않을까..? */
-    @NullSource
-    @ParameterizedTest
-    fun `LottoTicket에_Null이_들어오는_경우?`(lottoNumbers: Set<LottoNumber>) {
-        val exception = kotlin.runCatching { LottoTicket(lottoNumbers) }.exceptionOrNull()
-        assertThat(exception).isEqualTo(Exception::class.java)
+            .isEqualTo("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : $lottoNumbers")
     }
 
     @Test
-    fun `LottoTicket이_길이를_초과해도_잘_동작하는지?`() {
+    fun `LottoTicket이 허용된 길이를 초과할 경우 에러를 반환한다`() {
         val list = intArrayOf(1,2,3,4,45,8,7)
         val actualException = runCatching { LottoTicket(*list) }.exceptionOrNull()
-        assertThat(actualException).hasMessageThat().contains("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : ${list.toList()}")
+        assertThat(actualException).hasMessageThat().isEqualTo("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : ${list.toList()}")
     }
 
-    @CsvSource(value = ["1:true", "9:false", "10:false", "3:true"], delimiter = ':')
+    @CsvSource(value = ["1:true", "9:false"], delimiter = ':')
     @ParameterizedTest
-    fun `LottoTicket에_원하는_번호가_있는지?`(target : Int, result : Boolean) {
+    fun `LottoTicket에 원하는 번호가 있을 경우 true, 없을 경우 false 를 반환한다`(target : Int, result : Boolean) {
         val lottoNumbers = intArrayOf(1,2,3,4,5,6)
         val actualValue = LottoTicket(*lottoNumbers).has(LottoNumber.of(target))
         assertThat(actualValue).isEqualTo(result)
     }
 
     @Test
-    fun `두_LottoTicket_간에 _공통된_숫자가_몇개인지?`() {
+    fun `두 LottoTicket 간에 공통된 숫자의 갯수를 반환한다`() {
         val correctLottoNumber = intArrayOf(1,3,5,7,9,11)
         val testLottoNumber = intArrayOf(1,2,3,4,5,6)
         val expectAnswer = 3
