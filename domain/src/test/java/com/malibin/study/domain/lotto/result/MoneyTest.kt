@@ -23,22 +23,16 @@ internal class MoneyTest {
 
     @Test
     fun `plus 연산이 올바르게 동작해야 한다`() {
-        //given
-        val a = 3L
-        val b = 2L
         //when
-        val actualPlus = Money(a) + Money(b)
+        val actualPlus = Money(3L) + Money(2L)
         //then
         assertThat(actualPlus).isEqualTo(Money(5L))
     }
 
     @Test
     fun `minus 연산이 올바르게 동작해야 한다`() {
-        //given
-        val a = 3L
-        val b = 2L
         //when
-        val actualMinus = Money(a) - Money(b)
+        val actualMinus = Money(3L) - Money(2L)
         //then
         assertThat(actualMinus).isEqualTo(Money(1L))
     }
