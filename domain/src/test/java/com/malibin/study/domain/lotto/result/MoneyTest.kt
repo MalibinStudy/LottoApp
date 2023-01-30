@@ -31,4 +31,18 @@ internal class MoneyTest {
         // then
         Truth.assertThat(actualPlusResult).isEqualTo(plusResult)
     }
+
+    @Test
+    fun `돈을 뺄 수 있다`() {
+        // given
+        val money1 = Money(1000)
+        val money2 = Money(2000)
+        val minusResult = money2 - money1
+
+        // when
+        val actualMinusResult = money2.minus(money1)
+
+        // then
+        Truth.assertThat(actualMinusResult).isEqualTo(minusResult)
+    }
 }
