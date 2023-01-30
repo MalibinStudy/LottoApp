@@ -45,6 +45,40 @@ internal class WinningTicketTest {
         assertThat(actualPrize).isEqualTo(expectedPrize)
     }
 
+    @Test
+    fun `로또 티켓들 각각의 당첨 결과를 알 수 있다`() {
+        // given
+        val winningTicket = WinningTicket(
+            LottoTicket(1, 2, 3, 4, 5, 6),
+            LottoNumber.of(10),
+        )
+
+        val otherTickets: List<LottoTicket> = listOf(
+            LottoTicket(1, 2, 3, 4, 5, 6), // 1 등
+            LottoTicket(1, 2, 3, 4, 5, 10), // 2 등
+            LottoTicket(1, 2, 3, 4, 5, 10),  // 2 등
+            LottoTicket(1, 2, 3, 4, 15, 20), // 4등
+            LottoTicket(1, 2, 3, 15, 20, 25), // 5등
+            LottoTicket(1, 2, 15, 20, 25, 30), // 낙첨
+            LottoTicket(1, 15, 20, 25, 30, 35), // 낙첨
+            LottoTicket(15, 20, 25, 30, 35, 40) // 낙첨
+        )
+
+        // when
+        val actualCount = winningTicket.compareWith(otherTickets)
+        val actualCounts: List<Int?> = listOf(
+            actualCount[Prize.First] ?: 0,
+            actualCount[Prize.Second] ?: 0,
+            actualCount[Prize.Third] ?: 0,
+            actualCount[Prize.Fourth] ?: 0,
+            actualCount[Prize.Fifth] ?: 0,
+            actualCount[Prize.Lose] ?: 0
+        )
+
+        // then
+        assertThat(actualCounts).isEqualTo(listOf(1, 2, 0, 1, 1, 3))
+    }
+
     companion object {
         @JvmStatic
         private fun providesTicketsAndResult() = arrayOf(
