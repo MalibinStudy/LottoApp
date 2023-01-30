@@ -9,11 +9,11 @@ import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 internal class LottoTicketTest {
-    @MethodSource("providesLottoTickets")
+    @MethodSource("providesInvalidSizeLottoTickets")
     @ParameterizedTest
-    fun `lottoNumber의 size는 6이어야 한다`(arg: IntArray) {
         // given
         val lottoNumbers = arg
+    fun `lottoNumber의 size가 6이 아니면 예외를 발생시킨다`(lottoNumbers: IntArray) {
         // when
         val actualException = runCatching { LottoTicket(*lottoNumbers) }.exceptionOrNull()
         // then
@@ -60,7 +60,7 @@ internal class LottoTicketTest {
 
     companion object {
         @JvmStatic
-        fun providesLottoTickets(): List<Arguments> = listOf(
+        fun providesInvalidSizeLottoTickets(): List<Arguments> = listOf(
             Arguments.of(intArrayOf(1, 2, 3, 4)),
             Arguments.of(intArrayOf(1, 2, 3, 4, 5, 6, 7))
         )
