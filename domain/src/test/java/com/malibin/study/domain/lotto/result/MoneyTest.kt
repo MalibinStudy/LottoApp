@@ -16,7 +16,7 @@ internal class MoneyTest {
             { assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java) },
             {
                 assertThat(actualException).hasMessageThat()
-                    .contains("돈의 액수는 음수가 될 수 없습니다. 입력 값 : $amount")
+                    .isEqualTo("돈의 액수는 음수가 될 수 없습니다. 입력 값 : $amount")
             }
         )
     }
