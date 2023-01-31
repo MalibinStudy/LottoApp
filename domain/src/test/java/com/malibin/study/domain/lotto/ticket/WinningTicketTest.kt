@@ -65,18 +65,17 @@ internal class WinningTicketTest {
         )
 
         // when
-        val actualCount = winningTicket.compareWith(otherTickets)
-        val actualCounts: List<Int?> = listOf(
-            actualCount[Prize.First] ?: 0,
-            actualCount[Prize.Second] ?: 0,
-            actualCount[Prize.Third] ?: 0,
-            actualCount[Prize.Fourth] ?: 0,
-            actualCount[Prize.Fifth] ?: 0,
-            actualCount[Prize.Lose] ?: 0
+        val actualCounts = winningTicket.compareWith(otherTickets)
+        val expectedCounts = mapOf<Prize, Int>(
+            Prize.First to 1,
+            Prize.Second to 2,
+            Prize.Fourth to 1,
+            Prize.Fifth to 1,
+            Prize.Lose to 3
         )
 
         // then
-        assertThat(actualCounts).isEqualTo(listOf(1, 2, 0, 1, 1, 3))
+        assertThat(actualCounts).isEqualTo(expectedCounts)
     }
 
     companion object {
