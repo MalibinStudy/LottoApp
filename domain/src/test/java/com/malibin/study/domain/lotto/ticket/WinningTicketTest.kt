@@ -30,7 +30,7 @@ internal class WinningTicketTest {
     @MethodSource("provideLottoTickets")
     @ParameterizedTest
     fun `티켓과 당첨번호를 비교해 결과를 출력한다`(otherTicket: LottoTicket) {
-        //give
+        //given
         val winningNumbers = LottoTicket(1, 2, 3, 4, 5, 6)
         val bonusNumber = LottoNumber.of(20)
         val winningTicket = WinningTicket(winningNumbers, bonusNumber)
