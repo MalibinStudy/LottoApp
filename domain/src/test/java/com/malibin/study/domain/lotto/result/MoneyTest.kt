@@ -24,14 +24,14 @@ class MoneyTest {
         assertThat(exception).hasMessageThat().isEqualTo("돈의 액수는 음수가 될 수 없습니다. 입력 값 : $input")
     }
 
-    @CsvSource(value = ["0,0,0", "1,5,6", "2,7,9", "19, 9, 28", "20, 1, 20"])
+    @CsvSource(value = ["0,0,0", "1,5,6", "2,7,9", "19, 9, 28"])
     @ParameterizedTest
     fun `PLUS 함수가 덧셈 연산을 올바르게 수행한다`(input1 : Long, input2: Long, result : Long) {
         val actualResult = Money(input1) + Money(input2)
         assertThat(actualResult).isEqualTo(Money(amount = result))
     }
 
-    @CsvSource(value = ["0,0,0", "7,2,5", "19, 9, 10", "19, 8, 12"])
+    @CsvSource(value = ["0,0,0", "7,2,5", "19, 9, 10"])
     @ParameterizedTest
     fun `MINUS 함수가 뺄셈 연산을 올바르게 수행한다`(input1 : Long, input2: Long, result : Long) {
         val actualResult = Money(input1) - Money(input2)
