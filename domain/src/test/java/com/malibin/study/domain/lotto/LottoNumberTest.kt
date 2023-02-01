@@ -23,7 +23,7 @@ internal class LottoNumberTest {
         // then
         assertAll(
             { assertThat(actualException).isInstanceOf(IllegalArgumentException::class.java) },
-            { assertThat(actualException?.message).isEqualTo("입력 숫자 ($inValidNum)는 로또 숫자 범위(1 ~ 45) 내의 숫자가 아닙니다.") }
+            { assertThat(actualException).hasMessageThat().isEqualTo("입력 숫자 ($inValidNum)는 로또 숫자 범위(1 ~ 45) 내의 숫자가 아닙니다.") }
         )
     }
 }
