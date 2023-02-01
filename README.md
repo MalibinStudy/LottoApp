@@ -24,3 +24,8 @@
 ## 2단계
 ### Prize class Unit Test
 - [X] 로또 번호와 맞는 숫자 개수와 보너스 숫자의 여부에 따라 find()함수를 통해 Prize를 얻을 수 있다.
+
+### WinningTicket class Unit Test
+- [X] WinningTicket을 생성할 때, LottoTicket와 LottoNumber가 중복되면 에러가 발생한다.
+- [X] compareWith() 을 통해 LottoTicket과 일치하는 Prize를 얻을 수 있다.
+- [X] compareWith() 을 통해 List<LottoTicket>과 일치하는 Map<Prize, Int>를 얻을 수 있다.
