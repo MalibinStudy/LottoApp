@@ -32,4 +32,7 @@ internal class LottoTicketGeneratorTest {
         // then
         Truth.assertThat(actualLottoTicket).isEqualTo(expectedLottoTicket)
     }
+
+    @Test
+
 }
