@@ -6,26 +6,31 @@ import org.junit.jupiter.params.provider.CsvSource
 
 class PrizeTest {
 
-    @CsvSource(value = ["6,false,2000000000", "5,true,30000000"])
+    @CsvSource(value = ["6,false, First",
+                        "5,true,Second",
+                        "5,false,Third",
+                        "4,true,Fourth",
+                        "3,false,Fifth",
+                        "2,false,Lose",
+                        "1,false,Lose",
+                        "0,false,Lose"])
     @ParameterizedTest
-    fun `당첨 결과값을 잘 반환할 수 있다`(count : Int, has : Boolean, result : Long) {
-        val assertValue = Prize.find(count, has).amount.amount
-        assertThat(assertValue).isEqualTo(result)
+    fun `로또의 결과값을 잘 반환할 수 있다`(count: Int, has: Boolean, prize: Prize) {
+        val assertValue = Prize.find(count, has).name
+        assertThat(assertValue).isEqualTo(prize.name)
     }
 
-    @CsvSource(value = ["2,false,0", "1,true,0"])
+    @CsvSource(value = ["6,true,6,false",
+                        "4,true,4,false",
+                        "3,true,3,false",
+                        "2,true,2,false",
+                        "1,true,1,false",
+                        "0,true,0,false"])
     @ParameterizedTest
-    fun `미당첨 결과값을 잘 반환할 수 있다`(count : Int, has : Boolean, result : Long) {
-        val assertValue = Prize.find(count, has).amount.amount
-        assertThat(assertValue).isEqualTo(result)
-    }
-
-    /** 이 역시도 구현되지 않은 기능이므로 테스트에서 제외하는게 좋을까요? */
-    @CsvSource(value = ["0,true,0"])
-    @ParameterizedTest
-    fun `당첨 갯수가 0일때 보너스번호가 true로 됐을 경우 작동하면 안 되는데?`(count : Int, has : Boolean, result : Long) {
-        val assertValue = Prize.find(count, has).amount.amount
-        assertThat(assertValue).isEqualTo(result)
+    fun `보너스 번호가 상관 없는 경우를 잘 판단할 수 있다`(count: Int, has: Boolean, count2 : Int, has2 : Boolean) {
+        val bonusValue = Prize.find(count, has).name
+        val nonBonusValue = Prize.find(count2, has2).name
+        assertThat(bonusValue).isEqualTo(nonBonusValue)
     }
 
 }
