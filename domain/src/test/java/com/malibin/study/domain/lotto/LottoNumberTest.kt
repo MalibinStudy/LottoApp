@@ -1,14 +1,14 @@
 package com.malibin.study.domain.lotto
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 internal class LottoNumberTest {
-    @Test
-    fun `number가 범위(1~45)를 벗어날 경우 예외를 발생시킨다`() {
-        //given
-        val number = 46
+    @ValueSource(ints = [0, 46])
+    @ParameterizedTest
+    fun `number가 범위(1~45)를 벗어날 경우 예외를 발생시킨다`(number:Int) {
         //when
         val exception = runCatching { LottoNumber.of(number) }.exceptionOrNull()
         //then
