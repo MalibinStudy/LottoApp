@@ -64,8 +64,6 @@ internal class WinningTicketTest {
             LottoTicket(15, 20, 25, 30, 35, 40) // 낙첨
         )
 
-        // when
-        val actualCounts = winningTicket.compareWith(otherTickets)
         val expectedCounts = mapOf<Prize, Int>(
             Prize.First to 1,
             Prize.Second to 2,
@@ -73,6 +71,9 @@ internal class WinningTicketTest {
             Prize.Fifth to 1,
             Prize.Lose to 3
         )
+
+        // when
+        val actualCounts = winningTicket.compareWith(otherTickets)
 
         // then
         assertThat(actualCounts).isEqualTo(expectedCounts)
