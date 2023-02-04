@@ -32,10 +32,9 @@ internal class LottoTicketGeneratorTest {
     @Test
     fun `수동으로 발급한 티켓과 직접 만든 티켓이 일치하는 지를 비교한다`() {
         //given
-        val numbers = setOf(1, 2, 3, 4, 5, 6)
-        val lottoTicket = LottoTicket(*(numbers.toIntArray()))
+        val lottoTicket = LottoTicket(1, 2, 3, 4, 5, 6)
         //when
-        val actualLottoTicket = LottoTicketGenerator().createManualTicket(numbers)
+        val actualLottoTicket = LottoTicketGenerator().createManualTicket(setOf(1, 2, 3, 4, 5, 6))
         //then
         assertThat(actualLottoTicket).isEqualTo(lottoTicket)
     }
