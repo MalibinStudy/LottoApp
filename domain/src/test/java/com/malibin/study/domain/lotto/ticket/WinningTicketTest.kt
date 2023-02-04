@@ -41,17 +41,25 @@ internal class WinningTicketTest {
         assertThat(actualPrize).isEqualTo(prize)
     }
 
-    @MethodSource("provideLottoTicketList")
-    @ParameterizedTest
-    fun `복수의 티켓과 당첨번호를 비교해 결과를 출력한다`(otherTickets: List<LottoTicket>, m: Map<Prize, Int>) {
+    @Test
+    fun `복수의 티켓과 당첨번호를 비교해 결과를 출력한다`() {
         //given
+        val otherTickets = listOf(
+            LottoTicket(1, 2, 3, 4, 5, 6),
+            LottoTicket(1, 2, 3, 4, 5, 20),
+            LottoTicket(1, 2, 3, 4, 5, 7),
+            LottoTicket(1, 2, 3, 4, 5, 8),
+            LottoTicket(1, 2, 3, 4, 5, 9),
+        )
         val winningNumbers = LottoTicket(1, 2, 3, 4, 5, 6)
         val bonusNumber = LottoNumber.of(20)
         val winningTicket = WinningTicket(winningNumbers, bonusNumber)
         //when
         val actualPrize = winningTicket.compareWith(otherTickets)
         //then
-        assertThat(actualPrize).isEqualTo(m)
+        assertThat(actualPrize).isEqualTo(
+            mapOf(Pair(Prize.First, 1), Pair(Prize.Second, 1), Pair(Prize.Third, 3))
+        )
     }
 
     companion object {
@@ -64,21 +72,6 @@ internal class WinningTicketTest {
                 Arguments.of(LottoTicket(1, 2, 3, 4, 7, 8), Prize.Fourth), //4등
                 Arguments.of(LottoTicket(1, 2, 3, 7, 8, 9), Prize.Fifth), //5등
                 Arguments.of(LottoTicket(1, 2, 7, 8, 9, 10), Prize.Lose), //Lose
-            )
-        }
-
-        @JvmStatic
-        fun provideLottoTicketList(): List<Arguments> {
-            return listOf(
-                Arguments.of(
-                    listOf(
-                        LottoTicket(1, 2, 3, 4, 5, 6),
-                        LottoTicket(1, 2, 3, 4, 5, 20),
-                        LottoTicket(1, 2, 3, 4, 5, 7),
-                        LottoTicket(1, 2, 3, 4, 5, 8),
-                        LottoTicket(1, 2, 3, 4, 5, 9),
-                    ), mapOf(Prize.First to 1, Prize.Second to 1, Prize.Third to 3)
-                )
             )
         }
     }
