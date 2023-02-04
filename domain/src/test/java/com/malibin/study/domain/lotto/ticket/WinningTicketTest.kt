@@ -28,7 +28,7 @@ internal class WinningTicketTest {
         )
     }
 
-    @MethodSource("provideLottoTickets")
+    @MethodSource("provideLottoTicketsAndPrizes")
     @ParameterizedTest
     fun `티켓과 당첨번호를 비교해 결과를 출력한다`(otherTicket: LottoTicket, prize: Prize) {
         //given
@@ -64,7 +64,7 @@ internal class WinningTicketTest {
 
     companion object {
         @JvmStatic
-        fun provideLottoTickets(): List<Arguments> {
+        fun provideLottoTicketsAndPrizes(): List<Arguments> {
             return listOf(
                 Arguments.of(LottoTicket(1, 2, 3, 4, 5, 6), Prize.First), //1등
                 Arguments.of(LottoTicket(1, 2, 3, 4, 5, 20), Prize.Second), //2등
