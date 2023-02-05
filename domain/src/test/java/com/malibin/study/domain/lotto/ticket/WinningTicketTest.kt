@@ -6,6 +6,7 @@ import com.malibin.study.domain.lotto.result.Prize
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 internal class WinningTicketTest {
@@ -27,34 +28,52 @@ internal class WinningTicketTest {
         )
     }
 
-    @MethodSource("provideLottoTickets")
+    @MethodSource("provideLottoTicketsAndPrizes")
     @ParameterizedTest
-    fun `티켓과 당첨번호를 비교해 결과를 출력한다`(otherTicket: LottoTicket) {
+    fun `티켓과 당첨번호를 비교해 결과를 출력한다`(otherTicket: LottoTicket, prize: Prize) {
         //given
         val winningNumbers = LottoTicket(1, 2, 3, 4, 5, 6)
         val bonusNumber = LottoNumber.of(20)
         val winningTicket = WinningTicket(winningNumbers, bonusNumber)
         //when
         val actualPrize = winningTicket.compareWith(otherTicket)
-        val actualMatch = winningNumbers.countMatchingNumbers(otherTicket)
-        val hasBonus = otherTicket.has(bonusNumber)
         //then
-        assertThat(actualPrize).isEqualTo(Prize.find(actualMatch, hasBonus))
+        assertThat(actualPrize).isEqualTo(prize)
+    }
+
+    @Test
+    fun `복수의 티켓과 당첨번호를 비교해 결과를 출력한다`() {
+        //given
+        val otherTickets = listOf(
+            LottoTicket(1, 2, 3, 4, 5, 6),
+            LottoTicket(1, 2, 3, 4, 5, 20),
+            LottoTicket(1, 2, 3, 4, 5, 7),
+            LottoTicket(1, 2, 3, 4, 5, 8),
+            LottoTicket(1, 2, 3, 4, 5, 9),
+        )
+        val winningNumbers = LottoTicket(1, 2, 3, 4, 5, 6)
+        val bonusNumber = LottoNumber.of(20)
+        val winningTicket = WinningTicket(winningNumbers, bonusNumber)
+        //when
+        val actualPrize = winningTicket.compareWith(otherTickets)
+        //then
+        assertThat(actualPrize).isEqualTo(
+            mapOf(Pair(Prize.First, 1), Pair(Prize.Second, 1), Pair(Prize.Third, 3))
+        )
     }
 
     companion object {
         @JvmStatic
-        fun provideLottoTickets(): List<LottoTicket> {
+        fun provideLottoTicketsAndPrizes(): List<Arguments> {
             return listOf(
-                LottoTicket(1, 2, 3, 4, 5, 6), //1등
-                LottoTicket(1, 2, 3, 4, 5, 20), //2등
-                LottoTicket(1, 2, 3, 4, 5, 7), //3등
-                LottoTicket(1, 2, 3, 4, 7, 8), //4등
-                LottoTicket(1, 2, 3, 7, 8, 9), //5등
-                LottoTicket(1, 2, 7, 8, 9, 10), //Lose
+                Arguments.of(LottoTicket(1, 2, 3, 4, 5, 6), Prize.First), //1등
+                Arguments.of(LottoTicket(1, 2, 3, 4, 5, 20), Prize.Second), //2등
+                Arguments.of(LottoTicket(1, 2, 3, 4, 5, 7), Prize.Third), //3등
+                Arguments.of(LottoTicket(1, 2, 3, 4, 7, 8), Prize.Fourth), //4등
+                Arguments.of(LottoTicket(1, 2, 3, 7, 8, 9), Prize.Fifth), //5등
+                Arguments.of(LottoTicket(1, 2, 7, 8, 9, 10), Prize.Lose), //Lose
             )
         }
-
     }
 }
 
