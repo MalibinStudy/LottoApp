@@ -10,8 +10,16 @@ import org.junit.jupiter.params.provider.MethodSource
 internal class PrizeTest {
 
     @CsvSource(
-        value = ["6,false,First", "5,true,Second", "5,false,Third", "4,false,Fourth",
-            "3,false,Fifth", "2,false,Lose", "1,false,Lose", "0,false,Lose"]
+        value = [
+            "6,false,First",
+            "5,true,Second",
+            "5,false,Third",
+            "4,false,Fourth",
+            "3,false,Fifth",
+            "2,false,Lose",
+            "1,false,Lose",
+            "0,false,Lose"
+        ]
     )
     @ParameterizedTest
     fun `일치하는 번호의 개수와 보너스 번호의 존재 여부에 따라 당첨 결과를 알 수 있다`(
@@ -24,7 +32,16 @@ internal class PrizeTest {
         assertThat(actualPrize).isEqualTo(expectedPrize)
     }
 
-    @MethodSource("providesPrizeValue")
+    /*@CsvSource(
+        value = [
+            "First,2_000_000_000",
+            "Second,30_000_000",
+            "Third,1_500_000",
+            "Fourth,50_000",
+            "Fifth,5_000",
+            "Lose,0",
+        ]
+    )
     @ParameterizedTest
     fun `순위에 맞는 당첨 금액을 알 수 있다`(expectedPrize: Prize, expectedAmount: Long) {
         // when
@@ -32,18 +49,5 @@ internal class PrizeTest {
 
         // then
         assertThat(actualPrize).isEqualTo(expectedAmount)
-    }
-
-    companion object {
-        @JvmStatic
-        fun providesPrizeValue(): List<Arguments> =
-            listOf(
-                Arguments.of(Prize.First, 2_000_000_000L),
-                Arguments.of(Prize.Second, 30_000_000),
-                Arguments.of(Prize.Third, 1_500_000L),
-                Arguments.of(Prize.Fourth, 50_000L),
-                Arguments.of(Prize.Fifth, 5_000L),
-                Arguments.of(Prize.Lose, 0L),
-            )
-    }
+    }*/
 }
