@@ -3,7 +3,7 @@ package com.malibin.study.domain.lotto.ticket
 import com.malibin.study.domain.lotto.LottoNumber
 
 data class LottoTicket(
-    val lottoNumbers: Set<LottoNumber>,
+    val lottoNumbers: Set<LottoNumber>
 ) {
     init {
         require(lottoNumbers.size == LOTTO_NUMBERS_AMOUNT) { "로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : $lottoNumbers" }
