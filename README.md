@@ -14,10 +14,10 @@
 - [ ] of 함수가 제대로 작동하는지 테스트
 
 # LottoTicket 클래스 테스트
-- [ ] 로또 번호가 여섯개여야한다
-  - [ ] 기본 생성자로 테스트
-  - [ ] vararg numbers: Int를 넘겼을 때 잘 생성되는지 테스트
-  - [ ] numbers: List<LottoNumber>를 넘겼을 때 잘 생성되는지 테스트
+- [x] 로또 번호가 여섯개여야한다
+  - [x] 기본 생성자로 테스트
+  - [x] vararg numbers: Int를 넘겼을 때 잘 생성되는지 테스트
+  - [x] numbers: List<LottoNumber>를 넘겼을 때 잘 생성되는지 테스트
 - [ ] has 함수가 제대로 작동하는지 테스트
-- [ ] countMatchingNumbers 함수가 제대로 작동하는지 테스트
-- [ ] toString 함수가 제대로 작동하는지 테스트
+- [x] countMatchingNumbers 함수가 제대로 작동하는지 테스트
+- [x] toString 함수가 제대로 작동하는지 테스트
