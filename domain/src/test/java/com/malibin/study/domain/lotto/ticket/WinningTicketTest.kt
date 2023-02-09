@@ -31,11 +31,10 @@ internal class WinningTicketTest {
         // given
         val winningTicket = WinningTicket(LottoTicket(1, 2, 3, 4, 5, 6), LottoNumber.of(7))
         val otherTicket = LottoTicket(1, 2, 3, 4, 5, 7)
-        val expectedPrize = Prize.Second
         // when
         val actualPrize = winningTicket.compareWith(otherTicket)
         // then
-        assertThat(actualPrize).isEqualTo(expectedPrize)
+        assertThat(actualPrize).isEqualTo(Prize.Second)
     }
 
     @ParameterizedTest
