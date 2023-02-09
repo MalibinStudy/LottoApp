@@ -6,6 +6,7 @@ import com.malibin.study.domain.lotto.result.Prize
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 
 internal class WinningTicketTest {
@@ -39,13 +40,14 @@ internal class WinningTicketTest {
 
     @ParameterizedTest
     @MethodSource("provideLottoTicketsAndPrize")
-    fun `compareWith() 을 통해 LottoTicket과 일치하는 Prize를 얻을 수 있다`(pair: Pair<LottoTicket, Prize>) {
+    fun `compareWith() 을 통해 LottoTicket과 일치하는 Prize를 얻을 수 있다`(
+        lottoTicket: LottoTicket,
+        expectedPrize: Prize
+    ) {
         // given
         val winningTicket = WinningTicket(LottoTicket(1, 2, 3, 4, 5, 6), LottoNumber.of(7))
-        val otherTicket = pair.first
-        val expectedPrize = pair.second
         // when
-        val actualPrize = winningTicket.compareWith(otherTicket)
+        val actualPrize = winningTicket.compareWith(lottoTicket)
         // then
         assertThat(actualPrize).isEqualTo(expectedPrize)
     }
@@ -80,14 +82,14 @@ internal class WinningTicketTest {
 
     companion object {
         @JvmStatic
-        fun provideLottoTicketsAndPrize(): List<Pair<LottoTicket, Prize>> {
+        fun provideLottoTicketsAndPrize(): List<Arguments> {
             return listOf(
-                Pair(LottoTicket(1, 2, 3, 4, 5, 6), Prize.First), // 1등
-                Pair(LottoTicket(1, 2, 3, 4, 5, 7), Prize.Second), // 2등
-                Pair(LottoTicket(1, 2, 3, 4, 5, 8), Prize.Third), // 3등
-                Pair(LottoTicket(1, 2, 3, 4, 8, 9), Prize.Fourth), // 4등
-                Pair(LottoTicket(1, 2, 3, 8, 9, 10), Prize.Fifth), // 5등
-                Pair(LottoTicket(1, 2, 7, 8, 9, 11), Prize.Lose) // 꽝
+                Arguments.of(LottoTicket(1, 2, 3, 4, 5, 6), Prize.First), // 1등
+                Arguments.of(LottoTicket(1, 2, 3, 4, 5, 7), Prize.Second), // 2등
+                Arguments.of(LottoTicket(1, 2, 3, 4, 5, 8), Prize.Third), // 3등
+                Arguments.of(LottoTicket(1, 2, 3, 4, 8, 9), Prize.Fourth), // 4등
+                Arguments.of(LottoTicket(1, 2, 3, 8, 9, 10), Prize.Fifth), // 5등
+                Arguments.of(LottoTicket(1, 2, 7, 8, 9, 11), Prize.Lose) // 꽝
             )
         }
     }
