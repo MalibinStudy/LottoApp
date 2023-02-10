@@ -20,3 +20,12 @@
 - [x] 중복된 LottoNumber가 포함된 크기가 6개의 LottoNumber 리스트로는 LottoTicket을 만들 수 없다.
 - [x] countMatchingNumbers() 는 LottoTicket의 LottoNumber와 다른 LottoTicket의 LottoNumber를 비교하여 일치하는 숫자의 개수를 반환한다.
 - [x] has() 는 LottoTicket에 특정 LottoNumber가 포함되어 있는지 확인한다.
+
+## 2단계
+### Prize class Unit Test
+- [X] 로또 번호와 맞는 숫자 개수와 보너스 숫자의 여부에 따라 find()함수를 통해 Prize를 얻을 수 있다.
+
+### WinningTicket class Unit Test
+- [X] WinningTicket을 생성할 때, LottoTicket와 LottoNumber가 중복되면 에러가 발생한다.
+- [X] compareWith() 을 통해 LottoTicket과 일치하는 Prize를 얻을 수 있다.
+- [X] compareWith() 을 통해 List<LottoTicket>과 일치하는 Map<Prize, Int>를 얻을 수 있다.

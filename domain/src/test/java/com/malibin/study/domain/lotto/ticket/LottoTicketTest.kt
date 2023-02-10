@@ -72,7 +72,7 @@ internal class LottoTicketTest {
         // then
         assertAll(
             { assertThat(exception).isInstanceOf(IllegalArgumentException::class.java) },
-            { assertThat(exception?.message).isEqualTo("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : ${invalidLottoNumbers.toSet()}") }
+            { assertThat(exception).hasMessageThat().isEqualTo("로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : ${invalidLottoNumbers.toSet()}") }
         )
     }
 
@@ -93,7 +93,7 @@ internal class LottoTicketTest {
         assertAll(
             { assertThat(exception).isInstanceOf(IllegalArgumentException::class.java) },
             {
-                assertThat(exception?.message).isEqualTo(
+                assertThat(exception).hasMessageThat().isEqualTo(
                     "로또 티켓에 번호는 6개만 넣을 수 있습니다. 입력 값 : ${lottoNumbers.toSet()}"
                 )
             }
