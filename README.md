@@ -29,3 +29,8 @@
 - [X] WinningTicket을 생성할 때, LottoTicket와 LottoNumber가 중복되면 에러가 발생한다.
 - [X] compareWith() 을 통해 LottoTicket과 일치하는 Prize를 얻을 수 있다.
 - [X] compareWith() 을 통해 List<LottoTicket>과 일치하는 Map<Prize, Int>를 얻을 수 있다.
+
+## 3단게
+### LottoTicketGenerator class Unit Test
+- [X] 수동으로 로또 티켓을 만들 수 있다.
+- [x] 자동으로 로또 티켓을 만드는 방식을 변경할 수 있다.
